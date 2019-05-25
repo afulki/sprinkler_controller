@@ -14,6 +14,7 @@ defmodule SprinklerController.Supervisor do
   defp children() do
     [
       {SprinklerController, []},
+      {ZoneControl, []},
       {Mqtt.Starter, []}
     ]
   end

@@ -22,6 +22,8 @@ defmodule Mqtt.Processor do
           "Recieved #{inspect(payload)} for zone: #{zone}, mapped to: #{inspect(zone_info)}"
         )
 
+        ZoneControl.set(payload, zone_info)
+
       {:error, reason} ->
         Logger.error("zone: #{zone} resulted in: #{reason}")
     end
