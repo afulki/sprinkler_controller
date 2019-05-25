@@ -15,17 +15,22 @@ defmodule Mqtt.Processor do
     {:ok, state}
   end
 
-  def handle_message(topic, payload, state) do
-    case ZoneMap.map(topic) do
+  def handle_message(["home", "sprinkler", zone], payload, state) do
+    case ZoneMap.map(zone) do
       {:ok, zone_info} ->
         Logger.info(
-          "Recieved #{inspect(payload)} for topic: #{topic}, mapped to: #{inspect(zone_info)}"
+          "Recieved #{inspect(payload)} for zone: #{zone}, mapped to: #{inspect(zone_info)}"
         )
 
       {:error, reason} ->
-        Logger.error("Topic: #{topic} resulted in: #{reason}")
+        Logger.error("zone: #{zone} resulted in: #{reason}")
     end
 
+    {:ok, state}
+  end
+
+  def handle_message(topic, _, state) do
+    Logger.error("Unknown topic : #{inspect(topic)}")
     {:ok, state}
   end
 
