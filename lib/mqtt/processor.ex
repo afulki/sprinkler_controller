@@ -15,7 +15,23 @@ defmodule Mqtt.Processor do
     {:ok, state}
   end
 
-  def handle_message(["home", "sprinkler", zone], payload, state) do
+  @doc """
+  Callback to handle retrieving the state
+
+  payload: not used
+  """
+  def handle_message(["home", "sprinkler", "stat"], _payload, state) do
+    Logger.info("Received stat message")
+
+    {:ok, state}
+  end
+
+  @doc """
+  Callback to handle command messages, will switch the assocaited relay on or off
+
+  payload: "ON" or "OFF"
+  """
+  def handle_message(["home", "sprinkler", "cmd", zone], payload, state) do
     case ZoneMap.map(zone) do
       {:ok, zone_info} ->
         Logger.info(

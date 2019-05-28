@@ -1,7 +1,8 @@
 defmodule I2cControl do
   require Logger
 
-  defstruct i2c_pid: nil, boards: []
+  # %{board_address: 16, board_pin: 4}
+  defstruct i2c_pid: nil, pin_state: []
 
   alias Circuits.I2C
 
@@ -16,12 +17,6 @@ defmodule I2cControl do
   def init_i2c(state) do
     state
     |> connect_to_bus()
-
-    # |> enumerate_bus()
-  end
-
-  def has_board?(state, board) do
-    Enum.any?(state.boards, board)
   end
 
   def write_to_pin(state, zone_info, :on) do
