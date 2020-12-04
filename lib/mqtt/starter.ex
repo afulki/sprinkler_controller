@@ -26,7 +26,7 @@ defmodule Mqtt.Starter do
     )
 
     Tortoise.Supervisor.start_child(
-      client_id: "nerves_sprinkler_controller",
+      client_id: "nerves_sprinkler_controller_status",
       handler: {Mqtt.Processor, []},
       server: {Tortoise.Transport.Tcp, host: '10.0.1.200', port: 1883},
       subscriptions: [{"home/sprinkler/stat", 0}]

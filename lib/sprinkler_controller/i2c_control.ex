@@ -65,15 +65,4 @@ defmodule I2cControl do
         state
     end
   end
-
-  # defp enumerate_bus(state) do
-  #   case state.i2c_pid do
-  #     nil ->
-  #       state
-
-  #     _pid ->
-  #       boards = I2C.detect_devices()
-  #       %{state | boards: boards}
-  #   end
-  # end
 end

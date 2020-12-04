@@ -18,7 +18,7 @@ config :nerves, :firmware, rootfs_overlay: "rootfs_overlay"
 node_name = if Mix.env() != :prod, do: "sprinkler_controller"
 
 config :nerves_init_gadget,
-  mdns_domain: "nerves.local",
+  mdns_domain: "sprinkler.local",
   node_name: node_name,
   node_host: :mdns_domain,
   ifname: "eth0",

@@ -48,7 +48,7 @@ help() {
     exit 1
 }
 
-[ -n "$DESTINATION" ] || DESTINATION=nerves.local
+[ -n "$DESTINATION" ] || DESTINATION=sprinker.local
 [ -n "$MIX_TARGET" ] || MIX_TARGET=rpi0
 [ -n "$MIX_ENV" ] || MIX_ENV=dev
 if [ -z "$FILENAME" ]; then
@@ -66,11 +66,17 @@ if [ -z "$FILENAME" ]; then
         fi
     fi
 
-    FILENAME=$(ls "$FIRMWARE_PATH/"*.fw 2> /dev/null | head -n 1)
+    FILENAME=$(ls "$FIRMWARE_PATH/"*.fw 2>/dev/null | head -n 1)
 fi
 
-[ -n "$FILENAME" ] || (echo "Error: error determining firmware bundle."; help)
-[ -f "$FILENAME" ] || (echo "Error: can't find '$FILENAME'"; help)
+[ -n "$FILENAME" ] || (
+    echo "Error: error determining firmware bundle."
+    help
+)
+[ -f "$FILENAME" ] || (
+    echo "Error: can't find '$FILENAME'"
+    help
+)
 
 # Check the flavor of stat for sending the filesize
 if stat --version 2>/dev/null | grep GNU >/dev/null; then
